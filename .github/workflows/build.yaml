@@ -1,0 +1,28 @@
+name: build
+on: push
+
+jobs:
+  # generate zip
+  build-livy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Build with Maven
+        run: |
+          add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/'
+          apt-get update
+          apt-get -qq --allow-unauthenticated install r-base
+          apt-get -qq install python3-pip python-dev
+          apt-get -qq install libkrb5-dev
+          apt-get -qq remove python-setuptools
+          pip2 -q install --upgrade "pip < 10.0.0" "setuptools < 36"
+          python3 -m pip -q install --upgrade "pip < 10.0.0" "setuptools < 36"
+          pip2 -q install codecov cloudpickle
+          python3 -m pip -q install cloudpickle
+          pip2 -q install "requests >= 2.10.0" pytest flaky flake8 requests-kerberos
+          pip3 -q install "requests >= 2.10.0" pytest flaky requests-kerberos
+          mvn -Pthriftserver -DskipTests -Dmaven.javadoc.skip=true -B -V -e verify

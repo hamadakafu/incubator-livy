@@ -31,3 +31,5 @@ python-api/dist
 .eggs
 *.egg-info
 *.egg
+
+.metals
