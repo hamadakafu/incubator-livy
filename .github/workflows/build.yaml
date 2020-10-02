@@ -36,4 +36,4 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Maven
-        run: mvn package -DskipTests -Dmaven.javadoc.skip=true -B -V -e
+        run: mvn package -DskipTests -Dmaven.javadoc.skip=true
