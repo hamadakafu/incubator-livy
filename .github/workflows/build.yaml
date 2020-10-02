@@ -19,10 +19,10 @@ jobs:
           sudo apt-get -qq install python3-pip python-dev
           sudo apt-get -qq install libkrb5-dev
           sudo apt-get -qq remove python-setuptools
-          pip2 -q install --upgrade "pip < 10.0.0" "setuptools < 36"
-          python3 -m pip -q install --upgrade "pip < 10.0.0" "setuptools < 36"
-          pip2 -q install codecov cloudpickle
-          python3 -m pip -q install cloudpickle
-          pip2 -q install "requests >= 2.10.0" pytest flaky flake8 requests-kerberos
-          pip3 -q install "requests >= 2.10.0" pytest flaky requests-kerberos
+          sudo pip2 -q install --upgrade "pip < 10.0.0" "setuptools < 36"
+          sudo python3 -m pip -q install --upgrade "pip < 10.0.0" "setuptools < 36"
+          sudo pip2 -q install codecov cloudpickle
+          sudo python3 -m pip -q install cloudpickle
+          sudo pip2 -q install "requests >= 2.10.0" pytest flaky flake8 requests-kerberos
+          sudo pip3 -q install "requests >= 2.10.0" pytest flaky requests-kerberos
           mvn -Pthriftserver -DskipTests -Dmaven.javadoc.skip=true -B -V -e verify
