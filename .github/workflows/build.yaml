@@ -19,6 +19,13 @@ jobs:
           sudo apt-get -qq install python3-pip python-dev
           sudo apt-get -qq install libkrb5-dev
           sudo apt-get -qq remove python-setuptools
+          which pip2
+          which pip3
+          which python
+          which python2
+          which python3
+          python -V
+          cat /etc/os-release
           sudo pip2 -q install --upgrade "pip < 10.0.0" "setuptools < 36"
           sudo python3 -m pip -q install --upgrade "pip < 10.0.0" "setuptools < 36"
           sudo pip2 -q install codecov cloudpickle
