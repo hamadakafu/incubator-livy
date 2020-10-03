@@ -34,5 +34,5 @@ jobs:
           sudo pip2 -q install codecov cloudpickle
           sudo pip2 -q install "requests >= 2.10.0" pytest flaky flake8 requests-kerberos
 
-          mvn -Pthriftserver -DskipTests -Dmaven.javadoc.skip=true -B -V -e
+          mvn package -Pthriftserver -DskipTests -Dmaven.javadoc.skip=true -B -V -e
 
