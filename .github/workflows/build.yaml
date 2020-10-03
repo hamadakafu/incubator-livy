@@ -35,4 +35,10 @@ jobs:
           sudo pip2 -q install "requests >= 2.10.0" pytest flaky flake8 requests-kerberos
 
           mvn package -Pthriftserver -DskipTests -Dmaven.javadoc.skip=true -B -V -e
+      - name: Generate zip
+        run: zip -r incubator-livy.zip *
+      - uses: actions/upload-artifact@v2
+        with:
+          name: incubator-livy.zip
+          path: incubator-livy.zip
 
