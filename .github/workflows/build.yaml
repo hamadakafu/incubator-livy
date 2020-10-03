@@ -24,6 +24,7 @@ jobs:
           which python2
           which python3
           python -V
+          which tree
           cat /etc/os-release
 
       - name: Build with Maven
@@ -42,9 +43,6 @@ jobs:
 
           mvn package -Pthriftserver -DskipTests -Dmaven.javadoc.skip=true -B -V -e
 
-      - name: Generate zip
-        run: zip -r incubator-livy.zip *
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -55,14 +53,22 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./incubator-livy.zip
-          asset_name: incubator-livy.zip
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: assembly/target/apache-livy-0.8.0-incubating-SNAPSHOT-bin.zip
+          asset_name: apache-livy-0.8.0-incubating-SNAPSHOT-bin.zip
           asset_content_type: application/zip
+
+      - name: Show files
+        run: |
+          mkdir hoge
+          unzip assembly/target/apache-livy-0.8.0-incubating-SNAPSHOT-bin.zip -d hoge
+          sudo apt-get install -y tree
+          tree hoge
 
