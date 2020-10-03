@@ -24,7 +24,6 @@ jobs:
           which python2
           which python3
           python -V
-          which tree
           cat /etc/os-release
 
       - name: Build with Maven
